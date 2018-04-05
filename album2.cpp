@@ -9,6 +9,11 @@ public:
   void Status(void);
   bool EstaLleno(void);//nuevo metodo
 	int n_sobres_comprados; //nuevo atributo
+	int *Album::GetAlbum(void);
+	int *Album::GetRepetidas(void);
+	int Album::GetNRepetidas(void);
+	int Album::GetNEnAlbum(void);
+	void Album::Cambiasso(int repetida, int nueva);
   Album(int n);
   
 private:
@@ -18,6 +23,24 @@ private:
   int *album;
   int *repetidas;
 };
+int *Album::GetAlbum(void){
+	return album;
+}
+int *Album::GetRepetidas(void){
+	return repetidas;
+}
+int Album::GetNRepetidas(void){
+	return n_repetidas;
+}
+int Album::GetNEnAlbum(void){
+	return n_en_album;
+}
+void Album::Cambiasso(int repetida, int nueva){
+	n_repetidas--;
+	n_en_album++;
+	album[nueva]=1;
+	repetidas[repetida]--;
+}
 
 void Album::Status(void){
   cout << n_en_album << " "<<n_repetidas << endl;
@@ -62,6 +85,7 @@ bool Album::EstaLleno(void){
 int main(){
   srand(time(0));
   Album A(670);
+	Album B(670);
   int i;
   /*
   for(i=0;i<160;i++){
@@ -72,7 +96,28 @@ int main(){
   //while que compra a lo que marca hasta que llene el album
   while(!A.EstaLleno()){
   	A.CompraSobre(5);
+  	B.CompraSobre(5);
   }
   //imprime el numero de sobres necesatrios
-  cout<<"El numero de sobres necesarios para llenar el album fue: "<<A.n_sobres_comprados<<endl;
+  //cout<<"El numero de sobres necesarios para llenar el album fue: "<<A.n_sobres_comprados<<endl;
+}
+void cambia(Album A, Album B){
+	int i;
+	int j;
+	int minimo_repetidas=0;
+	if(A.GetNRepetidas()<=B.GetNRepetidas()){
+		minimo_repetidas=A.GetNRepetidas();
+	}else{
+		minimo_repetidas=B.GetNRepetidas();
+	}
+	for(i=0;i<670,i++){
+		if(A.GetRepetidas[i]>=1 and B.GetAlbum[i]==0){
+			for(j=0;j<670;j++){
+				if(B.GetRepetidas[i]>=1 and A.GetAlbum[j]==0){
+					A.Cambiasso(i,j);
+					B.Cambiasso(j,i);
+				}
+			}
+		}
+	}
 }
